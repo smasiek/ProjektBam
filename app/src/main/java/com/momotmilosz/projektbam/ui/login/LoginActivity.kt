@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.goToRegister?.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
             //intent.putExtra(HelloActivity.USER_NAME_EXTRA, userName)
             startActivity(intent)
         }
