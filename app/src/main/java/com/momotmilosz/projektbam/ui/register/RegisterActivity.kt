@@ -14,11 +14,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.momotmilosz.projektbam.Application
+import com.momotmilosz.projektbam.SecretApplication
 import com.momotmilosz.projektbam.R
 import com.momotmilosz.projektbam.data.database.User
 import com.momotmilosz.projektbam.databinding.ActivityRegisterBinding
 import com.momotmilosz.projektbam.ui.login.LoginActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -28,10 +30,11 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (applicationContext as Application).database.userDao().insert(
-            User(userName = "admin@admin.pl", password = "password")
-        )
-        Log.d("asda","asd")
+/*        GlobalScope.launch {
+            (SecretApplication.appContext as SecretApplication).database.userDao().insert(
+                User(userName = "admin@admin.pl", password = "password")
+            )
+        }*/
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)

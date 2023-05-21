@@ -1,12 +1,9 @@
 package com.momotmilosz.projektbam.ui.register
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import androidx.lifecycle.AndroidViewModel
-import com.momotmilosz.projektbam.Application
 import com.momotmilosz.projektbam.data.Result
 
 import com.momotmilosz.projektbam.R

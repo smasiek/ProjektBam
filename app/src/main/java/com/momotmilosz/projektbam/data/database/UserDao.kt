@@ -1,7 +1,6 @@
 package com.momotmilosz.projektbam.data.database
 
 import android.database.Cursor
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 
@@ -10,8 +9,12 @@ interface UserDao {
     @Query("SELECT * FROM user")
     fun getAll(): List<User>
 
-    @Query("SELECT * FROM user where user_name=:username and password=:password")
+    @Query("SELECT * FROM User WHERE user_name=:username and password=:password")
     fun loginCheck(username: String, password: String): User
+
+    @Query("SELECT * FROM User WHERE user_name=:username")
+    fun getUser(username: String): User
+
 //    fun loginCheck(username: String, password: String): LiveData<User>
 
 /*    @Transaction

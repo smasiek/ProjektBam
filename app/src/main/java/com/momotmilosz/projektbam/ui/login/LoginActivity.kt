@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -16,6 +17,8 @@ import android.widget.Toast
 import com.momotmilosz.projektbam.databinding.ActivityLoginBinding
 
 import com.momotmilosz.projektbam.R
+import com.momotmilosz.projektbam.SecretApplication
+import com.momotmilosz.projektbam.data.database.User
 import com.momotmilosz.projektbam.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -70,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            //finish()
         })
 
         username.afterTextChanged {
@@ -104,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
