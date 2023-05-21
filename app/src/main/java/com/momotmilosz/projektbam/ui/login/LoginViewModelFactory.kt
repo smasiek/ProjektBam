@@ -2,8 +2,8 @@ package com.momotmilosz.projektbam.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.momotmilosz.projektbam.data.LoginDataSource
-import com.momotmilosz.projektbam.data.LoginRepository
+import com.momotmilosz.projektbam.data.datasource.LoginDataSource
+import com.momotmilosz.projektbam.data.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

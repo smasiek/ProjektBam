@@ -7,7 +7,7 @@ import android.util.Patterns
 import com.momotmilosz.projektbam.data.Result
 
 import com.momotmilosz.projektbam.R
-import com.momotmilosz.projektbam.data.RegisterDataSource
+import com.momotmilosz.projektbam.data.datasource.RegisterDataSource
 
 class RegisterViewModel(private val registerDataSource: RegisterDataSource) : ViewModel() {
 

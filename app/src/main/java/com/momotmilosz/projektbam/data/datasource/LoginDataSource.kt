@@ -1,7 +1,8 @@
-package com.momotmilosz.projektbam.data
+package com.momotmilosz.projektbam.data.datasource
 
 import android.util.Log
 import com.momotmilosz.projektbam.SecretApplication
+import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.database.User
 import com.momotmilosz.projektbam.data.model.LoggedInUser
 import java.io.IOException

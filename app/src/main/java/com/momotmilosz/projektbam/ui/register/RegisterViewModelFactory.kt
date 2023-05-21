@@ -2,7 +2,7 @@ package com.momotmilosz.projektbam.ui.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.momotmilosz.projektbam.data.RegisterDataSource
+import com.momotmilosz.projektbam.data.datasource.RegisterDataSource
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

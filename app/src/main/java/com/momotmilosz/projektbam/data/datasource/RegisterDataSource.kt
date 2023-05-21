@@ -1,6 +1,7 @@
-package com.momotmilosz.projektbam.data
+package com.momotmilosz.projektbam.data.datasource
 
 import com.momotmilosz.projektbam.SecretApplication
+import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.database.User
 import com.momotmilosz.projektbam.data.model.RegisteredUser
 import com.momotmilosz.projektbam.exceptions.UserExistsException

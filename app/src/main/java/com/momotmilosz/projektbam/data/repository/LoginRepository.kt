@@ -1,5 +1,7 @@
-package com.momotmilosz.projektbam.data
+package com.momotmilosz.projektbam.data.repository
 
+import com.momotmilosz.projektbam.data.datasource.LoginDataSource
+import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.model.LoggedInUser
 
 /**
