@@ -16,4 +16,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="register_success">"Register success"</string>
     <string name="register_failed">"Register failed"</string>
+    <string name="register_failed_username_used">"There is user with such username"</string>
+    <string name="register_failed_no_values">"Not every field is filled"</string>
 </resources>

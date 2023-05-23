@@ -1,37 +1,24 @@
 package com.momotmilosz.projektbam.data.datasource
 
-import com.momotmilosz.projektbam.SecretApplication
-import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.database.User
+import com.momotmilosz.projektbam.data.database.UserDao
 import com.momotmilosz.projektbam.data.model.RegisteredUser
-import com.momotmilosz.projektbam.exceptions.UserExistsException
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class RegisterDataSource {
+class RegisterDataSource(private val userDao: UserDao) {
 
-    fun register(username: String, password: String): Result<RegisteredUser> {
-        try {
-            saveData(username, password)
-            return Result.Success(RegisteredUser(username))
-        } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
-        }
+    fun register(username: String, password: String): RegisteredUser {
+        userDao.insert(User(userName = username, password = password))
+        return RegisteredUser(username)
     }
 
-    private fun saveData(username: String, password: String) {
-        GlobalScope.launch {
-            val userDao = (SecretApplication.appContext as SecretApplication).database.userDao()
-            if (userDao.getUser(username).userName != "") {
-                throw UserExistsException()
-            }
-            userDao.insert(
-                User(userName = username, password = password)
-            )
-        }
+    fun getUsers(): List<User> {
+        return userDao.getAll()
+    }
+
+    fun getUser(username: String): User? {
+        return userDao.getUser(username)
     }
 }

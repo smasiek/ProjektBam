@@ -13,7 +13,7 @@ interface UserDao {
     fun loginCheck(username: String, password: String): User
 
     @Query("SELECT * FROM User WHERE user_name=:username")
-    fun getUser(username: String): User
+    fun getUser(username: String): User?
 
 //    fun loginCheck(username: String, password: String): LiveData<User>
 
