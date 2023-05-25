@@ -24,7 +24,7 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
     fun register(username: String, password: String, passwordConfirm: String) {
         // can be launched in a separate asynchronous job
         if (username.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
-            _registerResult.value = RegisterResult(error = R.string.register_failed_no_values)
+            _registerResult.postValue(RegisterResult(error = R.string.register_failed_no_values))
         } else {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
@@ -52,14 +52,15 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
 
     fun registerDataChanged(username: String, password: String, passwordConfirm: String) {
         if (!isUserNameValid(username)) {
-            _registerForm.value = RegisterFormState(usernameError = R.string.invalid_username)
+            _registerForm.postValue(RegisterFormState(usernameError = R.string.invalid_username))
         } else if (!isPasswordValid(password)) {
-            _registerForm.value = RegisterFormState(passwordError = R.string.invalid_password)
+            _registerForm.postValue(RegisterFormState(passwordError = R.string.invalid_password))
         } else if (!isConfirmPasswordValid(password, passwordConfirm)) {
-            _registerForm.value =
+            _registerForm.postValue(
                 RegisterFormState(passwordConfirmError = R.string.invalid_confirm_password)
+            )
         } else {
-            _registerForm.value = RegisterFormState(isDataValid = true)
+            _registerForm.postValue(RegisterFormState(isDataValid = true))
         }
     }
 

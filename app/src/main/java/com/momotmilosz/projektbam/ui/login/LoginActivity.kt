@@ -2,23 +2,19 @@ package com.momotmilosz.projektbam.ui.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.momotmilosz.projektbam.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.momotmilosz.projektbam.R
-import com.momotmilosz.projektbam.SecretApplication
-import com.momotmilosz.projektbam.data.database.User
+import com.momotmilosz.projektbam.databinding.ActivityLoginBinding
 import com.momotmilosz.projektbam.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -94,10 +90,18 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
+                        if (login.isEnabled) {
+                            loginViewModel.login(
+                                username.text.toString(),
+                                password.text.toString()
+                            )
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                getString(R.string.login_failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                 }
                 false
             }

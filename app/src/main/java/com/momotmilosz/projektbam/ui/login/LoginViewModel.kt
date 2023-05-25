@@ -1,13 +1,15 @@
 package com.momotmilosz.projektbam.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import com.momotmilosz.projektbam.data.repository.LoginRepository
-import com.momotmilosz.projektbam.data.Result
-
 import com.momotmilosz.projektbam.R
+import com.momotmilosz.projektbam.data.Result
+import com.momotmilosz.projektbam.data.repository.LoginRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -16,26 +18,34 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+    private val uiScope = CoroutineScope(
+        Dispatchers.IO
+    )
 
     fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
-
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
+        if (username.isEmpty() || password.isEmpty()) {
             _loginResult.value = LoginResult(error = R.string.login_failed)
+        } else {
+            uiScope.launch {
+                val result = loginRepository.login(username, password)
+                if (result is Result.Success) {
+                    _loginResult.postValue(
+                        LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+                    )
+                } else {
+                    _loginResult.postValue(LoginResult(error = R.string.login_failed))
+                }
+            }
         }
     }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
-            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
+            _loginForm.postValue(LoginFormState(usernameError = R.string.invalid_username))
         } else if (!isPasswordValid(password)) {
-            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
+            _loginForm.postValue(LoginFormState(passwordError = R.string.invalid_password))
         } else {
-            _loginForm.value = LoginFormState(isDataValid = true)
+            _loginForm.postValue(LoginFormState(isDataValid = true))
         }
     }
 

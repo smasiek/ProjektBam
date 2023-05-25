@@ -1,8 +1,9 @@
 package com.momotmilosz.projektbam.data.repository
 
-import com.momotmilosz.projektbam.data.datasource.LoginDataSource
 import com.momotmilosz.projektbam.data.Result
+import com.momotmilosz.projektbam.data.datasource.LoginDataSource
 import com.momotmilosz.projektbam.data.model.LoggedInUser
+import com.momotmilosz.projektbam.exceptions.UserDoesntExistsException
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -31,13 +32,13 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         // handle login
-        val result = dataSource.login(username, password)
+        val loggedInUser = dataSource.login(username, password)
 
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
+        if (loggedInUser.userId.isNotEmpty()) {
+            setLoggedInUser(loggedInUser)
+            return Result.Success(loggedInUser)
         }
-
-        return result
+        return Result.Error(UserDoesntExistsException())
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

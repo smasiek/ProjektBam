@@ -104,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
+                    EditorInfo.IME_ACTION_DONE ->
                         if (register.isEnabled) {
                             registerViewModel.register(
                                 username.text.toString(),
@@ -118,7 +118,6 @@ class RegisterActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    }
                 }
                 false
             }
