@@ -1,8 +1,10 @@
 package com.momotmilosz.projektbam.data.repository
 
+import com.momotmilosz.projektbam.SecretApplication
 import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.datasource.LoginDataSource
 import com.momotmilosz.projektbam.data.model.LoggedInUser
+import com.momotmilosz.projektbam.data.security.SecretManager
 import com.momotmilosz.projektbam.exceptions.UserDoesntExistsException
 
 /**
@@ -32,12 +34,20 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         // handle login
-        val loggedInUser = dataSource.login(username, password)
+        val secretManager = SecretManager()
+        val context = SecretApplication.appContext as SecretApplication
+        val user = dataSource.getUser(username)
 
-        if (loggedInUser.userId.isNotEmpty()) {
-            setLoggedInUser(loggedInUser)
-            return Result.Success(loggedInUser)
+        val decryptedPassword: String
+        if (user != null) {
+            decryptedPassword = secretManager.decryptString(username, user.password, context)
+            if (decryptedPassword == password) {
+                val loggedInUser = LoggedInUser(user.uid.toString(), user.userName)
+                setLoggedInUser(loggedInUser)
+                return Result.Success(loggedInUser)
+            }
         }
+
         return Result.Error(UserDoesntExistsException())
     }
 
