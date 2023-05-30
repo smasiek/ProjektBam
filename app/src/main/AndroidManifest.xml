@@ -13,6 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjektBAM"
         tools:targetApi="30">
+        <provider
+            android:name=".data.provider.NotesProvider"
+            android:authorities="com.momotmilosz.projektbam"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.momotmilosz.projektbam.read_notes"
+            android:protectionLevel="signature"/>
+
         <activity
             android:name=".ui.notes.NotesActivity"
             android:exported="false" />
