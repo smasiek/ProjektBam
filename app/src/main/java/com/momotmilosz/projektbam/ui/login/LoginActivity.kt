@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.momotmilosz.projektbam.R
 import com.momotmilosz.projektbam.databinding.ActivityLoginBinding
+import com.momotmilosz.projektbam.ui.notes.NotesActivity
 import com.momotmilosz.projektbam.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -65,6 +66,9 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
+                val notesIntent = Intent(applicationContext, NotesActivity::class.java)
+                notesIntent.putExtra("userId", loginResult.success.userId)
+                startActivity(notesIntent)
             }
             setResult(Activity.RESULT_OK)
 
