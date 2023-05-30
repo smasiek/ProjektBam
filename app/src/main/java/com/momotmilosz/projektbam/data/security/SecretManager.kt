@@ -99,7 +99,7 @@ class SecretManager() {
         }
     }
 
-    fun decryptString(usernameAlias: String?, stringToDecode: String, context: Context) :String{
+    fun decryptString(usernameAlias: String?, stringToDecode: String?, context: Context) :String{
         try {
             val privateKeyEntry = keyStore.getEntry(usernameAlias, null) as KeyStore.PrivateKeyEntry
 
