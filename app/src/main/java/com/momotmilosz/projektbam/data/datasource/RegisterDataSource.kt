@@ -10,7 +10,7 @@ import com.momotmilosz.projektbam.data.model.RegisteredUser
 class RegisterDataSource(private val userDao: UserDao) {
 
     fun register(username: String, password: String): RegisteredUser {
-        userDao.insert(User(userName = username, password = password))
+        userDao.insert(User(userName = username, password = password, uid = null))
         return RegisteredUser(username)
     }
 

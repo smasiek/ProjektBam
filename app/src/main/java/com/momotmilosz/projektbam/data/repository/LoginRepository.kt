@@ -42,7 +42,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         if (user != null) {
             decryptedPassword = secretManager.decryptString(username, user.password, context)
             if (decryptedPassword == password) {
-                val loggedInUser = LoggedInUser(user.uid.toString(), user.userName)
+                val loggedInUser = LoggedInUser(user.uid, user.userName)
                 setLoggedInUser(loggedInUser)
                 return Result.Success(loggedInUser)
             }
