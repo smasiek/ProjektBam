@@ -38,11 +38,10 @@ class NotesActivity : AppCompatActivity() {
             val decryptedNotes: MutableList<Note> = decryptNotes(notes)
             decryptedNotes.let {
                 val notesView = binding.notesLv
-                notesView.adapter = ArrayAdapter(this, R.layout.note_row, notes)
-
+                notesView.adapter = ArrayAdapter(this, R.layout.note_row, decryptedNotes)
 
                 notesView.setOnItemClickListener { adapterView, view, i, l ->
-                    Toast.makeText(this, "pos=" + i + " name=" + notes[i].message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "pos=" + i + " name=" + decryptedNotes[i].message, Toast.LENGTH_LONG).show()
                 }
             }
         }
