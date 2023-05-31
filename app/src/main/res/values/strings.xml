@@ -20,4 +20,6 @@
     <string name="register_failed_no_values">"Not every field is filled"</string>
     <string name="note_message">Note message</string>
     <string name="save_login">Save Login?</string>
+    <string name="secret_message">Secret message</string>
+    <string name="add_note">Add note</string>
 </resources>

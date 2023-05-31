@@ -1,13 +1,11 @@
 package com.momotmilosz.projektbam.ui.notes
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.momotmilosz.projektbam.data.database.Note
 import com.momotmilosz.projektbam.databinding.ActivityNotesBinding
-import com.momotmilosz.projektbam.ui.login.LoginViewModel
-import com.momotmilosz.projektbam.ui.login.LoginViewModelFactory
 
 class NotesActivity : AppCompatActivity() {
     private lateinit var noteViewModel: NoteViewModel
@@ -31,12 +29,20 @@ class NotesActivity : AppCompatActivity() {
 
         noteViewModel.getUserNotes(userId).observe(this) { notes ->
             notes?.let {
-                var msg = ""
+                val notesView = binding.lvNotes
+                val notesAdapter = NoteAdapter(this, notes)
+                notesView.adapter = notesAdapter
 
-                for (note in notes) {
-                    msg += note.message + "\n\n"
+                notesView.setOnItemClickListener { adapterView, view, i, l ->
+                    Toast.makeText(this, "pos=" + i + " name=" + notes[i].message, Toast.LENGTH_LONG).show()
                 }
-                AlertDialog.Builder(this).setMessage(msg).show();
+
+//                var msg = ""
+//
+//                for (note in notes) {
+//                    msg += note.message + "\n\n"
+//                }
+//                AlertDialog.Builder(this).setMessage(msg).show();
             }
         }
     }
