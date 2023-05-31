@@ -1,10 +1,12 @@
 package com.momotmilosz.projektbam.ui.notes
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.momotmilosz.projektbam.SecretApplication
+import com.momotmilosz.projektbam.R
 import com.momotmilosz.projektbam.data.database.Note
 import com.momotmilosz.projektbam.data.repository.LoginRepository.Companion.user
 import com.momotmilosz.projektbam.data.security.SecretManager
@@ -35,24 +37,13 @@ class NotesActivity : AppCompatActivity() {
         noteViewModel.getUserNotes(userId).observe(this) { notes ->
             val decryptedNotes: MutableList<Note> = decryptNotes(notes)
             decryptedNotes.let {
-                val notesView = binding.lvNotes
-                val notesAdapter = NoteAdapter(this, decryptedNotes)
-                notesView.adapter = notesAdapter
+                val notesView = binding.notesLv
+                notesView.adapter = ArrayAdapter(this, R.layout.note_row, notes)
+
 
                 notesView.setOnItemClickListener { adapterView, view, i, l ->
-                    Toast.makeText(
-                        this,
-                        "pos=" + i + " name=" + decryptedNotes[i].message,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this, "pos=" + i + " name=" + notes[i].message, Toast.LENGTH_LONG).show()
                 }
-
-                //                var msg = ""
-                //
-                //                for (note in notes) {
-                //                    msg += note.message + "\n\n"
-                //                }
-                //                AlertDialog.Builder(this).setMessage(msg).show();
             }
         }
     }
