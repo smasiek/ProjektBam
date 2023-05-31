@@ -9,7 +9,6 @@ class NoteDataSource(private val noteDao: NoteDao) {
     fun getUserNotes(userId: Int): Flow<MutableList<Note>> {
         return noteDao.getAllByUserId(userId)
     }
-
     @WorkerThread
     fun deleteNote(note: Note) {
         noteDao.delete(note)
