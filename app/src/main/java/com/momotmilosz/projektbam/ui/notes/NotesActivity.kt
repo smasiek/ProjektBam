@@ -1,8 +1,8 @@
 package com.momotmilosz.projektbam.ui.notes
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.momotmilosz.projektbam.SecretApplication
@@ -41,10 +41,17 @@ class NotesActivity : AppCompatActivity() {
                 notesView.adapter = ArrayAdapter(this, R.layout.note_row, decryptedNotes)
 
                 notesView.setOnItemClickListener { adapterView, view, i, l ->
-                    Toast.makeText(this, "pos=" + i + " name=" + decryptedNotes[i].message, Toast.LENGTH_LONG).show()
+                    editNote(decryptedNotes[i])
                 }
             }
         }
+    }
+    private fun editNote(note: Note) {
+        val intent = Intent(this, EditNoteForm::class.java)
+        intent.putExtra("note_uid", note.uid)
+        intent.putExtra("note_user_id", note.userId)
+        intent.putExtra("note_message", note.message)
+        startActivity(intent)
     }
 
     private fun decryptNotes(notes: MutableList<Note>): MutableList<Note> {

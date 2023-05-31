@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjektBAM"
         tools:targetApi="30">
+        <activity
+            android:name=".ui.notes.EditNoteForm"
+            android:exported="false" />
+
         <provider
             android:name=".data.provider.NotesProvider"
             android:authorities="com.momotmilosz.projektbam"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="com.momotmilosz.projektbam.read_notes"
-            android:protectionLevel="signature"/>
+            android:protectionLevel="signature"
+            android:readPermission="com.momotmilosz.projektbam.read_notes" />
 
         <activity
             android:name=".ui.notes.NotesActivity"

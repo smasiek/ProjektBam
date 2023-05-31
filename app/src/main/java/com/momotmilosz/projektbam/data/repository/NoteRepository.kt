@@ -11,8 +11,8 @@ class NoteRepository(private val dataSource: NoteDataSource) {
         return dataSource.getUserNotes(userId)
     }
 
-    fun deleteNote(note: Note) {
-        dataSource.deleteNote(note)
+    fun deleteNote(uid: Int) {
+        dataSource.deleteNote(uid)
     }
 
     fun insertNote(username: String, note: Note) {
