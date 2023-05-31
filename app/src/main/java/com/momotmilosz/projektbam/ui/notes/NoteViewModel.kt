@@ -22,7 +22,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel() {
         noteRepository.insertNote(username,note)
     }
 
-    fun delete(note: Note) = uiScope.launch {
-        noteRepository.deleteNote(note)
+    fun delete(uid: Int) = uiScope.launch {
+        noteRepository.deleteNote(uid)
     }
 }

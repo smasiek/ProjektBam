@@ -10,8 +10,8 @@ class NoteDataSource(private val noteDao: NoteDao) {
         return noteDao.getAllByUserId(userId)
     }
     @WorkerThread
-    fun deleteNote(note: Note) {
-        noteDao.delete(note)
+    fun deleteNote(uid: Int) {
+        noteDao.delete(uid)
     }
 
     @WorkerThread
