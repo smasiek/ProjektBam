@@ -34,11 +34,15 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     }
 
     fun insert(username: String, note: Note) = uiScope.launch {
-        noteRepository.insertNote(username, note)
+        withContext(Dispatchers.IO){
+            noteRepository.insertNote(username, note)
+        }
     }
 
     fun delete(uid: Int) = uiScope.launch {
-        noteRepository.deleteNote(uid)
+        withContext(Dispatchers.IO){
+            noteRepository.deleteNote(uid)
+        }
     }
 
     fun exportDatabase(password: String) = uiScope.launch {
