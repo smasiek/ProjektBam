@@ -7,7 +7,11 @@ import com.momotmilosz.projektbam.data.security.SecretManager
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepository(private val dataSource: NoteDataSource) {
-    fun getUserNotes(userId: Int): Flow<MutableList<Note>> {
+    fun getUserNotesObservable(userId: Int): Flow<MutableList<Note>> {
+        return dataSource.getUserNotesObservable(userId)
+    }
+
+    fun getUserNotes(userId: Int): List<Note>  {
         return dataSource.getUserNotes(userId)
     }
 

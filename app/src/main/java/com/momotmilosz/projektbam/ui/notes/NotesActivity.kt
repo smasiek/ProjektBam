@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.momotmilosz.projektbam.SecretApplication
 import com.momotmilosz.projektbam.R
+import com.momotmilosz.projektbam.SecretApplication
 import com.momotmilosz.projektbam.data.database.Note
 import com.momotmilosz.projektbam.data.repository.LoginRepository.Companion.user
 import com.momotmilosz.projektbam.data.security.SecretManager
@@ -15,6 +15,7 @@ import com.momotmilosz.projektbam.databinding.ActivityNotesBinding
 class NotesActivity : AppCompatActivity() {
     private lateinit var noteViewModel: NoteViewModel
     private lateinit var binding: ActivityNotesBinding
+    private val username: String? = user?.displayName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,10 @@ class NotesActivity : AppCompatActivity() {
         setContentView(binding.root)
         val userId = intent.getIntExtra("userId", 0)
 
+        val makeBackup = binding.makeBackup
+        val restoreBackup = binding.restoreBackup
+        val backupPassword = binding.backupPassword
+
         noteViewModel = ViewModelProvider(this, NoteViewModelFactory())
             .get(NoteViewModel::class.java)
 
@@ -30,7 +35,7 @@ class NotesActivity : AppCompatActivity() {
             val noteMessage = binding.messageNote.text.toString()
             val note = Note(userId = userId, message = noteMessage)
             noteViewModel.insert(
-                user?.displayName ?: throw IllegalAccessException("No logged user"), note
+                username ?: throw IllegalAccessException("No logged user"), note
             )
         }
 
@@ -45,7 +50,16 @@ class NotesActivity : AppCompatActivity() {
                 }
             }
         }
+
+        makeBackup.setOnClickListener {
+            noteViewModel.exportDatabase(backupPassword.text.toString())
+        }
+
+        restoreBackup.setOnClickListener {
+            noteViewModel.importDatabase(backupPassword.text.toString())
+        }
     }
+
     private fun editNote(note: Note) {
         val intent = Intent(this, EditNoteForm::class.java)
         intent.putExtra("note_uid", note.uid)
@@ -64,7 +78,7 @@ class NotesActivity : AppCompatActivity() {
                 Note(
                     note.uid,
                     note.userId,
-                    secretManager.decryptString(user?.displayName, note.message, context)
+                    secretManager.decryptString(username, note.message, context)
                 )
             )
         }

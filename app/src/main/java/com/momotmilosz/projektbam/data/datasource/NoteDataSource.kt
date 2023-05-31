@@ -6,8 +6,12 @@ import com.momotmilosz.projektbam.data.database.NoteDao
 import kotlinx.coroutines.flow.Flow
 
 class NoteDataSource(private val noteDao: NoteDao) {
-    fun getUserNotes(userId: Int): Flow<MutableList<Note>> {
-        return noteDao.getAllByUserId(userId)
+    fun getUserNotesObservable(userId: Int): Flow<MutableList<Note>> {
+        return noteDao.getAllNotesObservableByUserId(userId)
+    }
+
+    fun getUserNotes(userId: Int): List<Note> {
+        return noteDao.getAllNotesByUserId(userId)
     }
     @WorkerThread
     fun deleteNote(uid: Int) {

@@ -55,4 +55,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-common:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.11.5'
+    implementation 'com.opencsv:opencsv:4.3'
 }

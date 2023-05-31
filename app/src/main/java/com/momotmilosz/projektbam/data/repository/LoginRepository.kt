@@ -1,5 +1,6 @@
 package com.momotmilosz.projektbam.data.repository
 
+import android.security.keystore.UserNotAuthenticatedException
 import com.momotmilosz.projektbam.SecretApplication
 import com.momotmilosz.projektbam.data.Result
 import com.momotmilosz.projektbam.data.datasource.LoginDataSource
@@ -44,7 +45,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         if (user != null) {
             decryptedPassword = secretManager.decryptString(username, user.password, context)
             if (decryptedPassword == password) {
-                val loggedInUser = LoggedInUser(user.uid, user.userName)
+                val loggedInUser = LoggedInUser(user.uid?:throw UserNotAuthenticatedException("No uid in cache"), user.userName)
                 setLoggedInUser(loggedInUser)
                 return Result.Success(loggedInUser)
             }

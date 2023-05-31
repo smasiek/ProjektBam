@@ -16,7 +16,10 @@ interface NoteDao {
     fun delete(uid: Int)
 
     @Query("SELECT * FROM note WHERE user_id = :userId")
-    fun getAllByUserId(userId: Int): Flow<MutableList<Note>>
+    fun getAllNotesObservableByUserId(userId: Int): Flow<MutableList<Note>>
+
+    @Query("SELECT * FROM note WHERE user_id = :userId")
+    fun getAllNotesByUserId(userId: Int): List<Note>
 
     @Query("SELECT * FROM note")
     fun getAllCursor(): Cursor
