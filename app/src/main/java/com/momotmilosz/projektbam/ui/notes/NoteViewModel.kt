@@ -18,8 +18,8 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel() {
         return noteRepository.getUserNotes(userId).asLiveData()
     }
 
-    fun insert(note: Note) = uiScope.launch {
-        noteRepository.insertNote(note)
+    fun insert(username: String, note: Note) = uiScope.launch {
+        noteRepository.insertNote(username,note)
     }
 
     fun delete(note: Note) = uiScope.launch {

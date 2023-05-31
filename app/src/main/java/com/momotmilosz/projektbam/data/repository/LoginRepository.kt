@@ -15,8 +15,10 @@ import com.momotmilosz.projektbam.exceptions.UserDoesntExistsException
 class LoginRepository(val dataSource: LoginDataSource) {
 
     // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
+    companion object {
+        var user: LoggedInUser? = null
+            private set
+    }
 
     val isLoggedIn: Boolean
         get() = user != null
@@ -52,7 +54,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
+        user = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
