@@ -46,11 +46,15 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     }
 
     fun exportDatabase(password: String) = uiScope.launch {
-        exportDatabaseToFile(password)
+        withContext(Dispatchers.IO){
+            exportDatabaseToFile(password)
+        }
     }
 
     fun importDatabase(password: String) = uiScope.launch {
-        importDataFromFile(password)
+        withContext(Dispatchers.IO){
+            importDataFromFile(password)
+        }
     }
 
     @Throws(IOException::class)
